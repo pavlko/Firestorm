@@ -12,12 +12,7 @@
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
-    "precompiledReferences": [
-        "Firebase.App.dll",
-        "Firebase.Auth.dll",
-        "Firebase.Functions.dll",
-        "Unity.Tasks.dll"
-    ],
+    "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": []

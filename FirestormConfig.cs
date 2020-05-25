@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Firebase.Auth;
 using E7.Firebase.LitJson;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -110,11 +109,16 @@ namespace E7.Firebase
         private async Task<UnityWebRequest> SetupAndSendUWRAsync(UnityWebRequest uwr)
         {
             //Debug.Log($"Checking user in the Auth instance {Firestorm.AuthInstance.App.Name} -> {Firestorm.AuthInstance?.CurrentUser?.UserId}");
-            if (Firestorm.AuthInstance.CurrentUser == null)
+            //if (Firestorm.AuthInstance.CurrentUser == null)
+            //{
+            //    throw new FirestormException($"Login with FirebaseAuth first!");
+            //}
+            //var token = await Firestorm.AuthInstance.CurrentUser.TokenAsync(forceRefresh: false);
+            if (string.IsNullOrWhiteSpace(Firestorm.idToken))
             {
-                throw new FirestormException($"Login with FirebaseAuth first!");
+                throw new FirestormException($"Login with REST first, and set Firestorm.tokenId properly");
             }
-            var token = await Firestorm.AuthInstance.CurrentUser.TokenAsync(forceRefresh: false);
+            var token = Firestorm.idToken;
             uwr.SetRequestHeader("Authorization", $"Bearer {token}");
             Debug.Log($"Sending UWR to {uwr.uri} {uwr.url}");
             var ao = uwr.SendWebRequest();
